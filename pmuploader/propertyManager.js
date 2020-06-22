@@ -384,7 +384,8 @@ function print(){
     numberOfProperty = parseInt(inputs)
     inputs = document.getElementsByName( 'PMPhonenumber' )[0].value;
     PMPhonenumber = inputs
-
+    inputs = document.getElementsByName( 'ownerName' )[0].value;
+    ownerName = inputs
     /////////////////////////////////////////////////////////////////////
             
     const ref = firebase.firestore().collection('temporaryProperties').doc()
@@ -393,7 +394,7 @@ console.log(ref.id)
 
 firebase.firestore().collection('temporaryProperties').doc(ref.id).set({
     HouseFeature,NearPlaces,Nearby,OtherCharges,amenities,
-    description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,
+    description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,ownerName,
     id:ref.id
 })
 }
