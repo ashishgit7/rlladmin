@@ -55,11 +55,13 @@
           <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
           <a class="list-group-item active" href="propertyUpdater.html">Property update</a>
           <a class="list-group-item " href="visit.html">visit</a>
-          <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
-          <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a>
-          <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
-          <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
+          <a class="list-group-item " href="propertyVisit.html">Property Visit</a>
+          <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
+          <a class="list-group-item " href="viewProperty.html">View Property Manager Property</a>
+          <a class="list-group-item " href="referedTenant.html">Refer Tenant</a>
           <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+          <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
+          <a class="list-group-item " href="userProfileView.html">User Profile View</a>
         </ul>
       </div>
       <div class="col-6">
@@ -192,6 +194,7 @@
             </div>
           </div>
           <!-- ////Type-end///// -->
+          
           <!-- ////location//// -->
           <div id="locationBox"  class="init">
             <div class="input-group" style="width:30%">
@@ -214,6 +217,17 @@
           </div>
           </div>
           <!-- ////property Manager name-end//// -->
+           <!-- ////ownerName name//// -->
+           <div class="init" id="ownerNameBox">
+           <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Owner name</span>
+            </div>
+            <input type="text" class="form-control" name="ownerName">
+           
+          </div>
+          </div>
+          <!-- ////ownerName-end//// -->
           <!-- ////Number//// -->
               <div class="init" id="PMnumberBox">
           <div class="input-group mb-3" style="width:30%">
@@ -367,6 +381,19 @@
             <br>
             </div>
             <!-- ///Rules-end/// -->
+            <!-- pdf uploader -->
+            <br>
+            <div id="agreementBox" class="init">
+           <label style="display: block;">Choose House Agreement</label>
+           <input type="file" id="agreement"  >
+          </div>
+           <br>
+          <br>
+          <div id="checklistBox" class="init">
+            <label  style="display: block;">Choose House Checklist</label>
+            <input type="file" id="checklist"  >
+          </div>
+            <!-- pdf uploader end -->
             <!-- <button type="button" onclick="print()"> sub</button> -->
         </form>
 
@@ -463,9 +490,22 @@
         <label for="propertyResponsibilityCB" style="width:80%;font-size:2.0rem">Property responsibility
         </label>
         <input id="propertyResponsibilityCB" type="checkbox" onclick="propertyResponsibilityCB()">
+        
         <label for="propertyRulesCB" style="width:80%;font-size:2.0rem">Property rules
         </label>
         <input id="propertyRulesCB" type="checkbox" onclick="propertyRulesCB()">
+
+        <label for="checklistCB" style="width:80%;font-size:2.0rem">Checklist Pdf
+        </label>
+        <input id="checklistCB" type="checkbox" onclick="checklistCB()">
+
+        <label for="agreementCB" style="width:80%;font-size:2.0rem">Agreement pdf
+        </label>
+        <input id="agreementCB" type="checkbox" onclick="agreementCB()">
+
+        <label for="ownerNameCB" style="width:80%;font-size:2.0rem">Owner Name
+        </label>
+        <input id="ownerNameCB" type="checkbox" onclick="ownerNameCB()">
 
 
       </div>
@@ -477,6 +517,16 @@
   </footer>
 
 </body>
+<script>
+  var agreementPic;
+  var checklistPic;
+  document.getElementById('agreement').addEventListener('change', function(e){
+    agreementPic = e.target.files[0];
+  });
+   document.getElementById('checklist').addEventListener('change', function(e){
+    checklistPic = e.target.files[0];
+  });
+</script>
 <script src="./propertyUpdater.js"></script>
 <script src="./app.js"></script>
 <script src="./updater.js"></script>

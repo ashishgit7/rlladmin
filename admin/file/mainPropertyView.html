@@ -38,31 +38,56 @@
         <p class="navbar-brand " style="font-size: 3.25rem;"><span class="glyphicon glyphicon-cog"></span> Roomlelo Admin site</p>
     </nav>
     <div class="alert alert-primary text-center mx-5" role="alert">
-       <h1>View Property Manager Property
+       <h1> Main Property List
        </h1>
     </div>
-<div id="app">
-    <div class="container-fluid mt-5">
+    <div id="app">
+        <div class="container-fluid mt-5">
+   
+
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 <ul class="list-group">
                     <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
-                    <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
+                    <a class="list-group-item" style="outline: thin;" href="propertyUploader.html">Property uploader</a>
                     <a class="list-group-item" href="propertyUpdater.html">Property update</a>
-                    <a class="list-group-item " href="visit.html">visit</a>
+                    <a class="list-group-item" href="visit.html">Property update</a>
                     <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
                     <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
-                    <a class="list-group-item active " href="viewProperty.html">View Property Manager Property</a>
+                    <a class="list-group-item " href="viewProperty.html">View Property Manager Property</a>
                     <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
                     <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
-                    <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
-                    <a class="list-group-item " href="userProfileView.html">User profile view</a>
-                    <a class="list-group-item " href="additionalVisit.html">Additional Visit</a>
+                    <a class="list-group-item active" href="mainPropertyView.html">Main properties List</a>
+                    <a class="list-group-item " href="userProfileView.html">User Profile View</a>
                   
                   </ul>
             </div> 
+            <div id="propertyList" class="col-8">
+                <table class="table table-hover table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Property ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Property Manager</th>
+                        <th scope="col">Owner Name</th>
+                      </tr>
+                    </thead>
+                    <tbody id="propertyTable">    
+                        <tr v-for="(prop,ind) in allProperties" @click="show(prop.id)">
+                             <td >{{ind+1}}</td>   
+                             <td >{{prop.id}}</td>   
+                             <td>{{prop.name}}</td>   
+                             <td>{{prop.location}}</td>   
+                             <td>{{prop.manager}}</td>   
+                             <td>{{prop.ownerName}}</td>   
+                        </tr>
+                    </tbody>    
+                </table>
+            </div>
         
-       <div class="col-7" id="propertyShow">
+       <div class="col-8" id="propertyShow" style="display: none;">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item " v-for="(photo,ind) in property.photos" :class="{'active':ind==0}">
@@ -199,19 +224,31 @@
                         {{property.description}}
                     </div>  
                     <hr>
-                    <button class="btn btn-danger" :id="property.id" @click="del(property.id)">Delete</button> 
-                    <button class="btn btn-success" :id="'transfer'+property.id" @click="transfer(property.id)">Transfer</button> 
+                    <!-- <button class="btn btn-danger" :id="property.id" @click="transfer(property.id)">Delete</button>  -->
 
             </div>
         </div>  
     </div>    
-    <div class="col-2">
-        <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action" :class="{'active':ind==0}" v-for="(name,ind) in managerName"  data-toggle="list" v-on:click="show(IDprop[ind])">{{name}}</a>
-            
-            
-          </div>
-        </div>      
+    <div class="col-2"  >
+        <h3 id="backbtn" @click="backToList" style="display: none;">< Back to home</h4>
+            <div id="filterBox">
+                <h3 class="text-success">Filters</h3>
+           <label for="locationFilter">Location
+               <input type="text" id="locationFilter" style="width:100%" v-on:keyup="locationFilter" v-model="vloc">
+           </label>
+           <label for="propertyNameFilter">Property name
+               <input type="text" id="propertyNameFilter" style="width:100%" v-on:keyup="propertyNameFilter" v-model="vPname">
+           </label>
+           <label for="propertyManagerNameFilter">Property manager Name
+               <input type="text" id="propertyManagerNameFilter" style="width:100%" v-on:keyup="propertyManagerNameFilter" v-model="PMname">
+           </label>
+           <label for="ownerNameFilter">Owner Name
+               <input type="text" id="ownerNameFilter" style="width:100%" v-on:keyup="ownerNameFilter" v-model="owner">
+           </label>
+        </div>
+    </div>  
+     
+
     </div>
 </div>
     
@@ -239,28 +276,97 @@
         IDprop:[],
         agreement:'',
         checklist:'',
+        allProperties:[],
+        showProperties:[],
+        vloc:'',
+        vPname:'',
+        PMname:'',
+        owner:'',
 		
       },
 
      async created(){
          var ind=0;
-        await firebase.firestore().collection("temporaryProperties").orderBy('manager').get().then((doc)=>{
+        await firebase.firestore().collection("properties").orderBy('location').get().then((doc)=>{
             doc.forEach((docs)=>{
                 if(ind==0){
                 this.property = docs.data();}
-                this.managerName.push(docs.data().manager)
-                this.IDprop.push(docs.data().id)
+                this.allProperties.push(docs.data());
+                this.showProperties.push(docs.data());
+                // this.managerName.push(docs.data().manager)
+                // this.IDprop.push(docs.data().id)
                 ind++;
             })
         })
-        this.show(this.property.id)
-     
+        console.log(this.allProperties)
+      
       },
       methods:{
-          show: async function(id){
+      locationFilter: async function(){
+        this.allProperties=[];  
+        this.showProperties.forEach((doc)=>{
+            var val = doc.location.toLowerCase();
+
+            var index = val.indexOf(this.vloc.toLowerCase());
+            if(index!==-1){
+                this.allProperties.push(doc);
+            } 
+        })
+     },
+     propertyNameFilter: async function(){
+        this.allProperties=[];  
+        this.showProperties.forEach((doc)=>{
+            var val = doc.name.toLowerCase();
+
+            var index = val.indexOf(this.vPname.toLowerCase());
+            if(index!==-1){
+                this.allProperties.push(doc);
+            } 
+        })
+    },
+     propertyManagerNameFilter: async function(){
+        this.allProperties=[];  
+        this.showProperties.forEach((doc)=>{
+            var val = doc.manager.toLowerCase();
+
+            var index = val.indexOf(this.PMname.toLowerCase());
+            if(index!==-1){
+                this.allProperties.push(doc);
+            } 
+        })
+    },
+    ownerNameFilter: async function(){
+        this.allProperties=[];  
+        this.showProperties.forEach((doc)=>{
+            var val = doc.ownerName.toLowerCase();
+
+            var index = val.indexOf(this.owner.toLowerCase());
+            if(index!==-1){
+                this.allProperties.push(doc);
+            } 
+        })
+    },
+      
+      backToList: function(){
+        ele = document.getElementById('propertyShow')
+        ele.style.display="none"
+        ele = document.getElementById('propertyList')
+        ele.style.display="block"
+        ele = document.getElementById('backbtn')
+        ele.style.display="none"
+        ele = document.getElementById('filterBox')
+        ele.style.display="block"
+      },    
+     show: async function(id){
               ele = document.getElementById('propertyShow')
               ele.style.display="block"
-              await firebase.firestore().collection("temporaryProperties").doc(id).get().then((doc)=>{
+              ele = document.getElementById('propertyList')
+              ele.style.display="none"
+              ele = document.getElementById('backbtn')
+              ele.style.display="block"
+              ele = document.getElementById('filterBox')
+              ele.style.display="none"
+              await firebase.firestore().collection("properties").doc(id).get().then((doc)=>{
             this.property = doc.data()
         
             this.bed = doc.data().HouseFeature['Bedroom'];
@@ -281,32 +387,45 @@
         })   
           },
         
-        transfer: async function(id){
-            console.log(id)
-             await firebase.firestore().collection('properties').doc(id).set(this.property)
-            //  console.log(id)
-             alert("request submitted")
-        },
-        del:  function(id){
-            console.log(id)
-            firebase.firestore().collection('temporaryProperties').doc(id).delete();
-            storage = firebase.storage();
-            var tmp = "agreement/" + id+".PDF"
-            console.log(tmp)
-            storage.ref(tmp).delete()
-             tmp = "checklist/" + id+".PDF"
-            console.log(tmp)
-            storage.ref(tmp).delete()
-            alert("Property deleted")
-           
-        },
-       
         
 
            
       }
     })
   </script>
+  <style>
+      #backbtn:hover
+          {
+              color:blue;
+              font-size: 2.2rem;
+          }
+      
+  </style>
+  <!-- <script>
+    //    firebase.firestore().collection('properties').doc(ID).update({
+    //         numberOfProperty
+    //     })
+    firebase.firestore().collection('properties').get().then((docs)=>{
+        var ind=0;
+        docs.forEach((doc)=>{
+            // console.log(ind)
+            ind++;
+            var ownerName;
+            if(ind%3==0){
+                ownerName="Emma"
+            }
+            else if(ind%3==1){
+                ownerName="Annie"
+            }
+            else if(ind%3==2){
+                ownerName="scarlet"
+            }
+            firebase.firestore().collection('properties').doc(doc.id).update({
+            ownerName
+        })
+        })
+    })
+  </script> -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>

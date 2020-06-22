@@ -1,4 +1,13 @@
-function update(){
+
+async function update(){
+    if (confirm("Are you Sure!")) {
+        console.log( "You pressed OK!");
+    } else {
+        console.log("You pressed Cancel!");return;
+    }
+
+
+
     if(document.getElementById("HouseFeatureCB").checked==true){
         var HouseFeature={}
         inputs = document.getElementsByName( 'feat' );
@@ -11,7 +20,10 @@ function update(){
             });
         for(i=0;i<key.length;i++){
             HouseFeature[key[i]] = value[i]}
-        console.log(HouseFeature)    
+        console.log(HouseFeature)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            HouseFeature
+        })       
     }
     ///////////////////////////////////////////////////////////////////
     if(document.getElementById("nearLocationCB").checked){
@@ -28,6 +40,9 @@ function update(){
             NearPlaces[key[i]] = value[i]}
         
         console.log(NearPlaces)   
+        await firebase.firestore().collection('properties').doc(ID).update({
+          NearPlaces
+        })   
     }
     ///////////////////////////////////////////////////////////////////
     if(document.getElementById("nearByCB").checked){
@@ -43,7 +58,10 @@ function update(){
         for(i=0;i<key.length;i++){
             Nearby[key[i]] = value[i]}
         
-        console.log(Nearby)   
+        console.log(Nearby)  
+        await firebase.firestore().collection('properties').doc(ID).update({
+            Nearby
+        })    
     }
     ///////////////////////////////////////////////////////////////////
     if(document.getElementById("otherChargesCB").checked){
@@ -72,7 +90,10 @@ function update(){
     for(i=0;i<key.length;i++){
         OtherCharges[key[i]] = arr[i]}
     
-    console.log(OtherCharges)   
+    console.log(OtherCharges)  
+    await firebase.firestore().collection('properties').doc(ID).update({
+        OtherCharges
+    })    
     }
     ///////////////////////////////////////////////////////////////////
     if(document.getElementById("amenitiesCB").checked){
@@ -81,7 +102,7 @@ function update(){
     amenities = [].map.call(inputs, function( input ) {
                 return input.value;
             });
-    firebase.firestore().collection('properties').doc(ID).update({
+            await firebase.firestore().collection('properties').doc(ID).update({
             amenities
         })   
     }
@@ -90,7 +111,7 @@ function update(){
         inputs = document.getElementsByName( 'shortDescription' )[0].value;
         shortDescription = inputs
         console.log(shortDescription)
-    firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
         shortDescription
         })    
     }
@@ -99,7 +120,7 @@ function update(){
         
         inputs = document.getElementsByName( 'description' )[0].value;
         description = inputs
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             description
             })     
     }
@@ -108,7 +129,7 @@ function update(){
         inputs = document.getElementsByName( 'forWhom' )[0].value;
         forWhom = inputs
         console.log(forWhom)
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             forWhom
             }) 
     }
@@ -120,11 +141,13 @@ function update(){
             type
             }) 
     }
+    
     ///////////////////////////////////////////////////////////////////
     if(document.getElementById("locationCB").checked){
         inputs = document.getElementsByName( 'location' )[0].value;
         var location = inputs
-        firebase.firestore().collection('properties').doc(ID).update({
+        console.log(location);
+        await firebase.firestore().collection('properties').doc(ID).update({
           location
             }) 
     }
@@ -132,7 +155,7 @@ function update(){
     if(document.getElementById("minimumSecurityDepositCB").checked){
         inputs = document.getElementsByName( 'minSecurityDeposit' )[0].value;
         minSecurityDeposit = inputs
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
            minSecurityDeposit
             }) 
     }
@@ -140,7 +163,7 @@ function update(){
     if(document.getElementById("securityDepositCB").checked){
         inputs = document.getElementsByName( 'SecurityDeposit' )[0].value;
         securityDeposit = inputs
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             securityDeposit
             }) 
     }
@@ -149,7 +172,7 @@ function update(){
         inputs = document.getElementsByName( 'name' )[0].value;
         name = inputs
         console.log(name)
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             name
         })
     }
@@ -161,7 +184,7 @@ function update(){
                 });
         
         console.log(nearby)  
-        firebase.firestore().collection('properties').doc(ID).update({
+        await  firebase.firestore().collection('properties').doc(ID).update({
             nearby
             }) 
     }
@@ -172,7 +195,7 @@ function update(){
                 return input.value;
             });
             console.log(photos)
-            firebase.firestore().collection('properties').doc(ID).update({
+            await  firebase.firestore().collection('properties').doc(ID).update({
                photos
                 })          
     }
@@ -184,7 +207,7 @@ function update(){
             });
     
     console.log(priceArray)      
-    firebase.firestore().collection('properties').doc(ID).update({
+    await firebase.firestore().collection('properties').doc(ID).update({
       priceArray
         }) 
     }
@@ -216,7 +239,7 @@ function update(){
             rentDetails[key[i]] = arr[i]}
         
         console.log(rentDetails)  
-        firebase.firestore().collection('properties').doc(ID).update({
+        await  firebase.firestore().collection('properties').doc(ID).update({
             rentDetails
             })    
     }
@@ -239,7 +262,7 @@ function update(){
                 });
       
         console.log(rules) 
-        firebase.firestore().collection('properties').doc(ID).update({
+        await  firebase.firestore().collection('properties').doc(ID).update({
             rules
             })         
     }
@@ -248,8 +271,17 @@ function update(){
         inputs = document.getElementsByName( 'PMname' )[0].value;
         manager = inputs
         console.log(name)
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             manager
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("ownerNameCB").checked){
+        inputs = document.getElementsByName( 'ownerName' )[0].value;
+        ownerName = inputs
+        console.log(name)
+        await  firebase.firestore().collection('properties').doc(ID).update({
+            ownerName
         })
     }
      ///////////////////////////////////////////////////////////////////
@@ -257,7 +289,7 @@ function update(){
         inputs = document.getElementsByName( 'PMPhonenumber' )[0].value;
         PMPhonenumber = inputs
         console.log(name)
-        firebase.firestore().collection('properties').doc(ID).update({
+        await firebase.firestore().collection('properties').doc(ID).update({
             PMPhonenumber
         })
     }
@@ -272,11 +304,17 @@ function update(){
     }
      ///////////////////////////////////////////////////////////////////
      if(document.getElementById("availableCB").checked){
-        available = document.getElementById("availableCheck").checked;
-        firebase.firestore().collection('properties').doc(ID).update({
-            available
-        })
+        await firebase.storage().ref("agreement/"+ID).put(agreementPic);
+       
+
     }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("checklistCB").checked){
+        await  firebase.storage().ref("checklist/"+ID).put(checklistPic);
+    }
+    /////////////////////////////////////////////////////////////
+    window.location.reload();
+
 }
 var docID=[]
 var ID 

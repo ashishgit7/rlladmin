@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View property</title>
+           <!-- /////firebase//// -->
+
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-storage.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBv8smcSq6KUFImtYKIAWWZ0PgE3FDqS3s",
+      authDomain: "dev-roomlelo.firebaseapp.com",
+      databaseURL: "https://dev-roomlelo.firebaseio.com",
+      projectId: "dev-roomlelo",
+      storageBucket: "dev-roomlelo.appspot.com",
+      messagingSenderId: "450187201766",
+      appId: "1:450187201766:web:9a14dcd60b4b5101e93f27"
+    };
+    firebase.initializeApp(firebaseConfig);
+    //  var db = firebase.database();
+    //  console.log(db)
+
+  </script>
+  <!-- /////firebase//// -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary text-center">
+        <p class="navbar-brand " style="font-size: 3.25rem;"><span class="glyphicon glyphicon-cog"></span> Roomlelo Admin site</p>
+    </nav>
+    <div class="alert alert-primary text-center mx-5" role="alert">
+       <h1>View Main Property
+       </h1>
+    </div>
+    <div id="app">
+        <div class="container-fluid mt-5">
+   
+
+        <div class="row">
+            <div class="col-2">
+                <ul class="list-group">
+                    <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
+                    <a class="list-group-item" style="outline: thin;" href="propertyUploader.html">Property uploader</a>
+                    <a class="list-group-item" href="propertyUpdater.html">Property update</a>
+                    <a class="list-group-item" href="visit.html">Property update</a>
+                    <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
+                    <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
+                    <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
+                    <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
+                    <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+                    <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
+                    <a class="list-group-item active" href="userProfileView.html">User profile view</a>
+                   
+                  
+                  </ul>
+            </div> 
+            <div id="propertyList" class="col-8">
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone number</th>
+                        <th scope="col">employment</th>
+                        <th scope="col">Gender</th>
+                      </tr>
+                    </thead>
+                    <tbody id="propertyTable">    
+                        <tr v-for="(user,ind) in allUser">
+                             <td>{{user.name}}</td>   
+                             <td>{{user.email}}</td>   
+                             <td>{{user.personal.mobile}}</td>   
+                             <td>{{user.professional.employment}}</td>   
+                             <td>{{user.personal.gender}}</td>  
+                             <td><button class="btn btn-danger" @click="reject(userId[ind])" >Reject</button></td>
+                             <td><button class="btn btn-success"  @click="accepted(userId[ind])">Accept</button></td>
+                        </tr>
+                        </tbody>    
+                    </table>
+            </div>
+        
+         
+         
+    </div>
+</div>
+    
+    
+<footer id="footer" class="text-center py-5 my-5 bg-dark text-light">
+    <h1>Copyright AdminStrap, &copy; 2020</h1>
+  </footer>
+</div>
+
+</body>
+
+<script>
+    const vm = new Vue({
+		
+      el: '#app',
+      data: {
+        
+        allUser:[],
+        userId:[]
+		
+      },
+
+     async created(){
+         var ind=0;
+        await firebase.firestore().collection("TempuserProfile").get().then((doc)=>{
+            doc.forEach((docs)=>{
+               this.allUser.push(docs.data());
+               this.userId.push(docs.id)
+            })
+        })
+       
+        console.log(this.allUser)
+      
+      },
+      methods:{    
+        accepted: async function(id){
+            if (confirm("Are you Sure!")) {
+                console.log( "You pressed OK!");
+            } else {
+                console.log("You pressed Cancel!");return;
+            }
+            let val
+            await firebase.firestore().collection('TempuserProfile').doc(id).get().then((doc)=>{
+                val = doc.data()
+            })
+            console.log(val)
+             await firebase.firestore().collection('userProfile').doc(id).set(val)
+             await firebase.firestore().collection('TempuserProfile').doc(id).delete();
+            
+        },
+        reject: function(id){
+            if (confirm("Are you Sure!")) {
+                console.log( "You pressed OK!");
+            } else {
+                console.log("You pressed Cancel!");return;
+            }
+            firebase.firestore().collection('TempuserProfile').doc(id).delete();
+        }
+           
+      }
+    })
+  </script>
+  <style>
+      
+      
+  </style>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+</html>

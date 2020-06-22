@@ -10,8 +10,8 @@ function addMoreHF(){
     tag2.setAttribute("placeholder","Enter value")
     tag2.setAttribute("name","val")
     element.appendChild(br);
-   element.appendChild(tag1);
-   element.appendChild(tag2);
+    element.appendChild(tag1);
+    element.appendChild(tag2);
 }
 
 function addMoreNL(){
@@ -26,8 +26,8 @@ function addMoreNL(){
     tag2.setAttribute("placeholder","Enter Distance")
     tag2.setAttribute("name","distance")
     element.appendChild(br);
-   element.appendChild(tag1);
-   element.appendChild(tag2);
+    element.appendChild(tag1);
+    element.appendChild(tag2);
 }
 function addMoreNB(){
     var tag1 = document.createElement("input");
@@ -42,8 +42,8 @@ function addMoreNB(){
     tag2.setAttribute("name","number")
     tag2.setAttribute("type","number")
     element.appendChild(br);
-   element.appendChild(tag1);
-   element.appendChild(tag2);
+    element.appendChild(tag1);
+    element.appendChild(tag2);
 }
 function addMoreAmenity(){
     var tag1 = document.createElement("input");
@@ -57,7 +57,7 @@ function addMoreAmenity(){
     tag1.style.width="20%";
 
     // element.prependChild(br);
-   element.appendChild(tag1);
+    element.appendChild(tag1);
 //    element.appendChild(tag2);
 }
 
@@ -72,7 +72,7 @@ function addMoreLandmarks(){
     tag1.style.display="inline";
     tag1.style.width="20%";
 
-   element.appendChild(tag1);
+    element.appendChild(tag1);
 
 }
 function addMoreOtherCharges(){
@@ -91,7 +91,7 @@ function addMoreOtherCharges(){
     tag3.setAttribute("placeholder","Additional Note")
     tag3.setAttribute("name","additionalNote")
     tag3.style.width="30%"
-   
+
     element.appendChild(tag1);
     element.appendChild(tag2);
     element.appendChild(br);
@@ -111,7 +111,7 @@ function addMorePhotoURL(){
     tag1.style.display="inline";
     tag1.style.width="20%";
 
-   element.appendChild(tag1);
+    element.appendChild(tag1);
 
 }
 
@@ -127,7 +127,7 @@ function addMorePriceArray(){
     tag1.style.display="inline";
     tag1.style.width="20%";
 
-   element.appendChild(tag1);
+    element.appendChild(tag1);
 
 }
 function addMorePropertyFeature(){
@@ -142,7 +142,7 @@ function addMorePropertyFeature(){
     tag1.style.display="inline";
     tag1.style.width="20%";
 
-   element.appendChild(tag1);
+    element.appendChild(tag1);
 
 }
 
@@ -204,84 +204,84 @@ function addMoreRules(){
 function print(){
     if (confirm("Are you Sure!")) {
         console.log( "You pressed OK!");
-      } else {
+    } else {
         console.log("You pressed Cancel!");return;
-      }
+    }
 
     let HouseFeature = {},NearPlaces={},Nearby={},OtherCharges={},amenities=[],
     inputs = document.getElementsByName( 'feat' );
     key = [].map.call(inputs, function( input ) {
-                
-                return input.value;
-            });
+
+        return input.value;
+    });
     inputs = document.getElementsByName( 'val' );   
     value = [].map.call(inputs, function( input ) {
-                return parseInt(input.value);
-            });
+        return parseInt(input.value);
+    });
     for(i=0;i<key.length;i++){
-       
+
         HouseFeature[key[i]] = value[i]}
-    
-    console.log(HouseFeature)   
-    
+
+        console.log(HouseFeature)   
+
     ////////////////////
     inputs = document.getElementsByName( 'nearPlaces' );
     key = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'distance' );   
     value = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     for(i=0;i<key.length;i++){
         NearPlaces[key[i]] = value[i]}
-    
-    console.log(NearPlaces) 
+
+        console.log(NearPlaces) 
     /////////////////////
     inputs = document.getElementsByName( 'nearby' );
     key = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'number' );   
     value = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     for(i=0;i<key.length;i++){
         Nearby[key[i]] = value[i]}
-    
-    console.log(Nearby) 
+
+        console.log(Nearby) 
     ///////////////////////////////////////
     inputs = document.getElementsByName( 'otherchargename' );
     key = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'amount' );   
     amount = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'additionalNote' );   
     note = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
 
     arr= new Array()
     for( i=0;i<key.length;i++)
       arr[i] = new Array(2);
-    for(i=0;i<key.length;i++){
-        arr[i][0] = amount[i];
-        arr[i][1] = note[i];
-    }
+  for(i=0;i<key.length;i++){
+    arr[i][0] = amount[i];
+    arr[i][1] = note[i];
+}
 
-    for(i=0;i<key.length;i++){
-        OtherCharges[key[i]] = arr[i]}
+for(i=0;i<key.length;i++){
+    OtherCharges[key[i]] = arr[i]}
     
     console.log(OtherCharges) 
     ///////////////////////////////
     inputs = document.getElementsByName( 'Amenity' );
     amenities = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
-   
+        return input.value;
+    });
+
     
     console.log(amenities)
     //////////////////////////////
@@ -313,87 +313,93 @@ function print(){
     ////////////////////////////////
     inputs = document.getElementsByName( 'landmark' );
     nearby = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     
     console.log(nearby)   
     /////////////////////   
     inputs = document.getElementsByName( 'photosURL' );
     photos = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     
     console.log(photos)   
     inputs = document.getElementsByName( 'PriceArray' );
     priceArray = [].map.call(inputs, function( input ) {
-                return parseInt(input.value);
-            });
+        return parseInt(input.value);
+    });
     
     console.log(priceArray)   
     inputs = document.getElementsByName( 'PropertyFeature' );
     propertyFeatures= [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     
     console.log(propertyFeatures )
     //////////////////////////////////   
     rentDetails={}
     inputs = document.getElementsByName( 'type' );
     key = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'monthlyRent' );   
     rent = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'RentSecurityDeposit' );   
     SD = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
 
     arr= new Array()
     for( i=0;i<key.length;i++)
       arr[i] = new Array(2);
-    for(i=0;i<key.length;i++){
-        arr[i][0] = rent[i];
-        arr[i][1] = SD[i];
-    }
+  for(i=0;i<key.length;i++){
+    arr[i][0] = rent[i];
+    arr[i][1] = SD[i];
+}
 
-    for(i=0;i<key.length;i++){
-        rentDetails[key[i]] = arr[i]}
+for(i=0;i<key.length;i++){
+    rentDetails[key[i]] = arr[i]}
     
     console.log(rentDetails) 
     ///////////////////////////////////////
     inputs = document.getElementsByName( 'responsibility' );
     responsibility = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     inputs = document.getElementsByName( 'rules' );
     rules = [].map.call(inputs, function( input ) {
-                return input.value;
-            });
+        return input.value;
+    });
     console.log(responsibility)
     console.log(rules)
     //////////////////////////////////////////
     inputs = document.getElementsByName( 'PMname' )[0].value;
     manager = inputs
+    inputs = document.getElementsByName( 'ownerName' )[0].value;
+    ownerName = inputs
     inputs = document.getElementsByName( 'numberOfProperty' )[0].value;
     numberOfProperty = parseInt(inputs)
     inputs = document.getElementsByName( 'PMPhonenumber' )[0].value;
     PMPhonenumber = inputs
-            
-    const ref = firebase.firestore().collection('properties').doc()
-console.log(ref.id)  
-available = document.getElementById("availableBox").checked;
 
-     
-firebase.firestore().collection('properties').doc(ref.id).set({
-    HouseFeature,NearPlaces,Nearby,OtherCharges,amenities,
-    description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,available,
-    id:ref.id,
-    
-})
+    const ref = firebase.firestore().collection('properties').doc()
+    console.log(ref.id)  
+    available = document.getElementById("availableBox").checked;
+
+
+    firebase.firestore().collection('properties').doc(ref.id).set({
+        HouseFeature,NearPlaces,Nearby,OtherCharges,amenities,
+        description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,available,ownerName,
+        id:ref.id,
+
+    })
+
+    firebase.storage().ref("agreement/"+ref.id).put(agreementPic);
+    firebase.storage().ref("checklist/"+ref.id).put(checklistPic);
+
+
+
 }
 // var db = firebase.firestore();
-const ref = firebase.firestore().collection('properties').doc()
-console.log(ref.id)  // prints the unique id

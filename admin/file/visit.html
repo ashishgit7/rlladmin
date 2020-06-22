@@ -48,22 +48,24 @@
      </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 <ul class="list-group">
                     <a class="list-group-item" style="outline: thin;" href="../index.html">Dashboard</a>
                     <a class="list-group-item" style="outline: thin;" href="propertyUploader.html">Property uploader</a>
                     <a class="list-group-item" href="propertyUpdater.html">Property update</a>
                     <a class="list-group-item active" href="visit.html">visit</a>
                     <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
-                    <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a>
+                    <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
                     <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
                     <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
-                <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+                    <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+                    <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
+                    <a class="list-group-item " href="userProfileView.html">User profile view</a>
 
 
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <div class="list-group list-group-horizontal w-50" id="list-tab" role="tablist">
                     <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
                         href="#seen" role="tab" aria-controls="home" onclick="seenbar()">Seen</a>
@@ -105,10 +107,26 @@
 
                 </div>
             </div>
-
+            <!-- <div class="col-2">
+                <label for="locationFilter">Property ID
+                    <input type="text" id="locationFilter" style="width:100%" onkeyup="IDfilter()" name="IDfilter">
+                </label>
+                <label for="propertyNameFilter">Property name
+                    <input type="text" id="propertyNameFilter" style="width:100%" v-on:keyup="propertyNameFilter" v-model="vPname">
+                </label>
+                <label for="propertyManagerNameFilter">Property manager Name
+                    <input type="text" id="propertyManagerNameFilter" style="width:100%" v-on:keyup="propertyManagerNameFilter" v-model="PMname">
+                </label>
+                <label for="ownerNameFilter">Owner Name
+                    <input type="text" id="ownerNameFilter" style="width:100%" v-on:keyup="ownerNameFilter" v-model="owner">
+                </label>
+            </div> -->
+</div>
+</div>
 
 </body>
 <script src="./visit.js"></script>
+<!-- <script src="./visitFilter.js"></script> -->
 <script >
     seenbar()
 </script>

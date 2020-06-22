@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <!-- /////firebase//// -->
+  <style>
+   button{
+     padding: 5px;
+     background-color: grey;
+     color: white;
+     border-radius: 0.25rem;
+     border: solid lightgrey;
+   }
+   button:hover{
+     padding: 5px;
+     background-color: black;
+     color: white;
+     border-radius: 0.25rem;
+     border: solid lightgrey;
+   }
+ </style>
+
+ <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
+ <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-storage.js"></script>
+ <script>
+   var firebaseConfig = {
+     apiKey: "AIzaSyBv8smcSq6KUFImtYKIAWWZ0PgE3FDqS3s",
+     authDomain: "dev-roomlelo.firebaseapp.com",
+     databaseURL: "https://dev-roomlelo.firebaseio.com",
+     projectId: "dev-roomlelo",
+     storageBucket: "dev-roomlelo.appspot.com",
+     messagingSenderId: "450187201766",
+     appId: "1:450187201766:web:9a14dcd60b4b5101e93f27"
+   };
+   firebase.initializeApp(firebaseConfig);
+    //  var db = firebase.database();
+    //  console.log(db)
+
+  </script>
+  <!-- /////firebase//// -->
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-primary text-center">
+    <p class="navbar-brand " style="font-size: 3.25rem;"><span class="glyphicon glyphicon-cog"></span> Roomlelo Admin site</p>
+  </nav>
+  <div class="alert alert-primary text-center mx-5" role="alert">
+    <h1>Additional Visit
+    </h1>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <ul class="list-group">
+          <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
+          <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
+          <a class="list-group-item" href="propertyUpdater.html">Property update</a>
+          <a class="list-group-item " href="visit.html">visit</a>
+          <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
+          <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
+          <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
+          <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
+          <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+          <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
+          <a class="list-group-item " href="userProfileView.html">User profile view</a>
+          <a class="list-group-item active" href="additionalVisit.html">Additional Visit</a>
+        </ul>
+      </div>
+      <div class="col-4">
+      <div class="card  px-lg-4 py-lg-4 m-2 p-2 sticky-top" id="bookbar">
+                    <h4>Book a visit!</h4>
+                    <hr>
+
+                    <form>
+                        <div id="collapseTarget1" class="collapse show">
+                            <div class="form-group">
+                                <label for="nameInput">Full Name</label>
+                                <input  type="text" class="form-control" id="nameInput" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="numberInput">Phone number</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">+91</div>
+                                    </div>
+                                    <input required type="text" class="form-control" id="numberInput" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nameInput"> Visit Date </label>
+                                <input required type="date" class="form-control" id="dateInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="Property ID"> Property ID </label>
+                                <input type="text" class="form-control" id="propID" required>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="submitData()" required  >
+                                Submit
+                            </button>
+                            <hr>
+                            <!-- <small>Or call +91-9711999999</small> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+          
+      </div>
+      
+    </div>
+  </div>
+  
+  <footer id="footer" class="text-center py-5 my-5 bg-dark text-light">
+    <H1>Copyright AdminStrap, &copy; 2020</h1>
+    </footer>
+    
+  </body>
+  <script>
+     function submitData(){
+      if (confirm("Are you Sure!")) {
+        console.log( "You pressed OK!");
+    } else {
+        console.log("You pressed Cancel!");return;
+    }
+    
+     var form={};
+      form['name'] = document.getElementById("nameInput").value;
+      form['phone'] = document.getElementById("numberInput").value;
+      form['bookedDate'] = document.getElementById("dateInput").value;
+     var propertyid = document.getElementById("propID").value;
+      if(form.name.length==0||form.phone.length==0||form.bookedDate.length==0||propertyid.length==0) {
+        alert("wrong detail") 
+        return;}
+     
+     var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    var today = mm + '/' + dd + '/' + yyyy;
+    firebase.firestore().collection('visits').add({
+    form,propertyid,
+    date: today,
+    seen:false
+
+})
+   
+     
+    }
+  </script>
+  <!-- <script src="./app.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </html>

@@ -11,8 +11,6 @@ async function seenbar(){
            seen.push(val)
        })
    }) 
-//   console.log(val)
-  
    
    var element = document.getElementById("seenTable");
    var box = document.getElementById("unseen");

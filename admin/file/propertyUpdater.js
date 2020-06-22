@@ -318,3 +318,45 @@ function availableCB (){
      HFinp.style.display = "block"
     }
 }
+////////////////////////////////////
+function agreementCB (){
+  
+  var HF =   document.getElementById("agreementCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("agreementBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("agreementBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function checklistCB (){
+  
+  var HF =   document.getElementById("checklistCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("checklistBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("checklistBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function ownerNameCB (){
+  
+  var HF =   document.getElementById("ownerNameCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("ownerNameBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("ownerNameBox");
+     HFinp.style.display = "block"
+    }
+}
