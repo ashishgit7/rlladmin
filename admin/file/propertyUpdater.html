@@ -54,17 +54,18 @@
           <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
           <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
           <a class="list-group-item active" href="propertyUpdater.html">Property update</a>
-          <a class="list-group-item " href="visit.html">visit</a>
-          <a class="list-group-item " href="propertyVisit.html">Property Visit</a>
+          <a class="list-group-item " href="visit.html">Scheduled visits</a>
+          <a class="list-group-item " href="propertyVisit.html">enlishment request</a>
           <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
-          <a class="list-group-item " href="viewProperty.html">View Property Manager Property</a>
+          <a class="list-group-item " href="viewProperty.html">acquisition request</a>
           <a class="list-group-item " href="referedTenant.html">Refer Tenant</a>
           <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
           <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
           <a class="list-group-item " href="userProfileView.html">User Profile View</a>
+          <a class="list-group-item" href="additionalVisit.html">book a  Visit</a>
         </ul>
       </div>
-      <div class="col-6">
+      <div class="col-5">
         <form>
           <div class="form-group">
             <label for="propertyID">
@@ -83,8 +84,9 @@
               <label for="Housefeature" style="display: block;">House feature</label>
               <input id="Housefeature" class="form-control HF_input" placeholder="Enter house feature" name="feat">
               <input class="form-control HF_input" placeholder="Enter value" name="val">
-              <button type="button" onclick="addMoreHF()"> add more</button>
             </div>
+            <button type="button" onclick="addMoreHF()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(3,'form1',3)"> remove</button>
           </div>
           <!-- ///house feature end/// -->
           <!-- ///Near location/// -->
@@ -93,8 +95,9 @@
               <label for="nearLocation" style="display: block;">Near location</label>
               <input id="nearLocation" class="form-control HF_input" placeholder="Enter location" name="nearPlaces">
               <input class="form-control HF_input" placeholder="Enter Distance" name="distance">
-              <button type="button" onclick="addMoreNL()"> add more</button>
             </div>
+            <button type="button" onclick="addMoreNL()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(3,'form2',3)"> remove</button>
           </div>
           <!-- ///Near location end/// -->
           <!-- ///Nearby/// -->
@@ -104,8 +107,9 @@
 
               <input id="nearby" class="form-control HF_input" placeholder="Enter Nearby" name="nearby">
               <input class="form-control HF_input" type="number" placeholder="Enter number" name="number">
-              <button type="button" onclick="addMoreNB()"> add more</button>
             </div>
+            <button type="button" onclick="addMoreNB()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(3,'form3',3)"> remove</button>
           </div>
           <!-- ///Nearby-end/// -->
           <!-- ///Other-charges/// -->
@@ -116,13 +120,15 @@
               <input id="otherCharges" class="form-control HF_input" placeholder="Enter charge Name"
                 name="otherchargename" placeholder="Other Charges">
               <input class="form-control HF_input" placeholder="Enter amount" name="amount">
-              <button type="button" onclick="addMoreOtherCharges()"> add more</button>
+              <!-- <button type="button" onclick="addMoreOtherCharges()"> add more</button> -->
               <br>
               <textarea class="form-control mt-1" style="width: 30%;" rows="2" placeholder="Additional Note"
                 name="additionalNote"></textarea>
               <br>
 
             </div>
+            <button type="button" onclick="addMoreOtherCharges()"> add more</button>
+          <button type="button" class="btn btn-danger" onclick="rem(6,'form4',4)"> remove</button>
           </div>
           <!-- ///Other-charges-end/// -->
           <!-- ///Amenities/// -->
@@ -132,10 +138,9 @@
 
               <input id="amenity" class="form-control" style="width:20%;display:inline" placeholder="Enter Amenity"
                 name="Amenity">
-
-
             </div>
             <button type="button" onclick="addMoreAmenity()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form5',1)"> remove</button>
             <br>
           </div>
           <!-- ///Amenities-end/// -->
@@ -189,7 +194,7 @@
                 <option selected value="">Choose...</option>
                 <option>Shared Rooms</option>
                 <option>Private Rooms</option>
-                <option>Family Rooms</option>
+                <option>Entire house</option>
               </select>
             </div>
           </div>
@@ -232,7 +237,7 @@
               <div class="init" id="PMnumberBox">
           <div class="input-group mb-3" style="width:30%">
             <div class="input-group-prepend">
-              <span class="input-group-text">Property number</span>
+              <span class="input-group-text"> number of rooms</span>
             </div>
             <input type="number" class="form-control" name="numberOfProperty">
            
@@ -268,6 +273,38 @@
 
             </div>
           </div>
+           <!-- ////Owner  phone number//// -->
+           <div id="ownerNumberBox" class="init">
+           <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Onwner Phone number</span>
+            </div>
+            <input type="text" class="form-control" name="ownerNumber">
+          </div>
+          </div>
+          <!-- ////Owner phone number-end//// -->
+          <!-- ////Owner charge to company//// -->
+          <div id="companyChargeBox" class="init">
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Owner charge to company</span>
+            </div>
+            <input type="text" class="form-control" name="companyCharge">
+          </div>
+          </div>
+          <!-- ////Owner charge to company-end//// -->
+          <!-- ////Owner security Depost to company//// -->
+          <div id="ownerSecurityDepositBox" class="init">
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Owner Security depost to company</span>
+            </div>
+            <input type="text" class="form-control" name="ownerSecurityDeposit">
+          </div>
+          </div>
+          <!-- ////Owner security Depost to company-end//// -->
+          <!-- ///property tyepe// -->
+          
             <!-- ////Minimum security deposit end//// -->
             <!-- //// property-name///// -->
             <div id="nameBox" class="init">
@@ -284,6 +321,18 @@
               <input id="availableCheck" type="checkbox">
             </div>
             <!-- //// property-name-end///// -->
+            <!-- //// bookedRooms-///// -->
+            <div id="bookedRoomsBox" class="init">
+            <div class="input-group mt-3" style="width:30%">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Number of booked rooms</span>
+              </div>
+              <input type="number" class="form-control" name="bookedRooms">
+
+            </div>
+            </div>
+           
+            <!-- //// bookedRooms-end///// -->
 
             <!-- ////landmarks//// -->
             <div id = "landmarkBox" class="init">
@@ -296,6 +345,7 @@
 
             </div>
             <button type="button" onclick="addMoreLandmarks()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form7',1)"> remove</button>
             <br>
             </div>
             <!-- ////landmarks -end//// -->
@@ -310,6 +360,7 @@
 
             </div>
             <button type="button" onclick="addMorePhotoURL()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form8',1)"> remove</button>
             <br>
             </div>
             <!-- ////photo url//// -->
@@ -324,6 +375,7 @@
 
             </div>
             <button type="button" onclick="addMorePriceArray()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form9',1)"> remove</button>
             <br>
             </div>
             <!-- ////Prices array//// -->
@@ -345,14 +397,15 @@
               <label for="Rent-detail" style="display: block;">Rent Detail</label>
 
               <input id="Rent-detail" class="form-control HF_input" placeholder="Enter Room type" name="type">
-              <button type="button" onclick="addMoreRentDetails()"> add more</button>
               <br>
               <input class="form-control HF_input" placeholder="Enter Monthly Rent" name="monthlyRent">
-
+              
               <input class="form-control HF_input" placeholder="Security Deposit" name="RentSecurityDeposit"></input>
-
-
+              
+              
             </div>
+            <button type="button" onclick="addMoreRentDetails()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(5,'form11',4)"> remove</button>
             </div>
             <!-- ///Rent-detail end/// -->
             <!-- ///Responsiblity/// -->
@@ -365,6 +418,7 @@
 
             </div>
             <button type="button" onclick="addMoreResponsibility()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form12',1)"> remove</button>
             <br>
             </div>
             <!-- ///Responsiblity-end/// -->
@@ -378,10 +432,22 @@
 
             </div>
             <button type="button" onclick="addMoreRules()"> add more</button>
+            <button type="button" class="btn btn-danger" onclick="rem(2,'form13',1)"> remove</button>
             <br>
             </div>
+
             <!-- ///Rules-end/// -->
-            <!-- pdf uploader -->
+            <div class="init" id="propertyTypeInputBox">
+              <select id="propertyTypeInput" style="width:20%" class=" mt-3 mb-3">
+                <option selected disabled>Property type</option>
+                <option value = "assured property">Assured property</option>
+                <option value="RLL property">RLL property</option>
+              </div>
+              <!-- ///property tyepe end// -->
+              <!-- pdf uploader -->
+              <div>
+              <input style ="display: none;" type="text">
+            </div>
             <br>
             <div id="agreementBox" class="init">
            <label style="display: block;">Choose House Agreement</label>
@@ -395,6 +461,7 @@
           </div>
             <!-- pdf uploader end -->
             <!-- <button type="button" onclick="print()"> sub</button> -->
+            
         </form>
 
       </div>
@@ -507,6 +574,26 @@
         </label>
         <input id="ownerNameCB" type="checkbox" onclick="ownerNameCB()">
 
+        <label for="ownerNumberCB" style="width:80%;font-size:2.0rem">Owner Number
+        </label>
+        <input id="ownerNumberCB" type="checkbox" onclick="ownerNumberCB()">
+
+        <label for="companyChargeCB" style="width:80%;font-size:2.0rem">Company Charge
+        </label>
+        <input id="companyChargeCB" type="checkbox" onclick="companyChargeCB()">
+
+        <label for="ownerSecurityDepositCB" style="width:80%;font-size:2.0rem">Owner Security Deposit
+        </label>
+        <input id="ownerSecurityDepositCB" type="checkbox" onclick="ownerSecurityDepositCB()">
+
+        <label for="propertyTypeInputCB" style="width:80%;font-size:2.0rem">property type
+        </label>
+        <input id="propertyTypeInputCB" type="checkbox" onclick="propertyTypeInputCB()">
+
+        <label for="bookedRoomsCB" style="width:80%;font-size:2.0rem">Number of Booked rooms
+        </label>
+        <input id="bookedRoomsCB" type="checkbox" onclick="bookedRoomsCB()">
+
 
       </div>
     </div>
@@ -517,6 +604,17 @@
   </footer>
 
 </body>
+<script>
+  function rem(mxchild,id,num){
+
+    x = document.getElementById(id).childElementCount;
+    // console.log(x);
+    // console.log(mxchild+' '+id)
+    if(x>mxchild){
+   for(i=0;i<num;i++)  { 
+  $('#'+id).children().last().remove();}}
+  }
+</script>
 <script>
   var agreementPic;
   var checklistPic;

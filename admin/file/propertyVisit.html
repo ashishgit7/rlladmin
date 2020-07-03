@@ -7,7 +7,7 @@
     <title>Admin Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -43,75 +43,340 @@
             Admin site</p>
     </nav>
     <div class="alert alert-primary text-center mx-5" role="alert">
-        <h1>New Property Request 
+        <h1>Enlishment request
         </h1>
      </div>
+     <div id="app">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 <ul class="list-group">
                     <a class="list-group-item" style="outline: thin;" href="../index.html">Dashboard</a>
                     <a class="list-group-item" style="outline: thin;" href="propertyUploader.html">Property uploader</a>
                     <a class="list-group-item" href="propertyUpdater.html">Property update</a>
-                    <a class="list-group-item " href="visit.html">visit</a>
-                    <a class="list-group-item active" href="propertyVisit.html">Property Visit</a>
+                    <a class="list-group-item " href="visit.html">Scheduled visits</a>
+                    <a class="list-group-item active" href="propertyVisit.html">enlishment request</a>
                     <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
-                    <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
+                    <a class="list-group-item  " href="viewProperty.html">acquisition request</a>
                     <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
-                     <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
-                     <a class="list-group-item" href="mainPropertyView.html">Main properties List</a>
-                     <a class="list-group-item " href="userProfileView.html">User Profile View</a>
+                    <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
+                    <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
+                    <a class="list-group-item " href="userProfileView.html">User profile view</a>
+                    <a class="list-group-item" href="additionalVisit.html">Additional Visit</a>
+
 
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-8">
                 <div class="list-group list-group-horizontal w-50" id="list-tab" role="tablist">
                     <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
-                        href="#seen" role="tab" aria-controls="home" onclick="seenbar()">Seen</a>
+                        href="#seen" role="tab" aria-controls="home" @click="seenbar">Seen</a>
                     <a class="list-group-item list-group-item-action ml-3" style="border: solid thin;"
                         id="list-profile-list" data-toggle="list" href="#unseen" role="tab"
-                        aria-controls="profile" onclick="unseenbar()">Unseen</a>
+                        aria-controls="profile" @click="unseenbar">Unseen</a>
                 </div>
                 <div class="container mt-5" id="seen" >
                     <table class="table">
                         <thead class="thead-dark">
                           <tr>
-                            <th scope="col">Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col"> Name</th>
+                            <th scope="col">Property type</th>
                             <th scope="col">Phone number</th>
-                          <th scope="col">Location</th>
-                          <th scope="col">House type</th>
-                          <th scope="col">Mark</th>
+                            <th scope="col">Mark</th>
                           </tr>
                         </thead>
-                        <tbody id="seenTable">    
+                        <tbody id="seenTable"> 
+                            <tr v-for="visit in seen">
+                                <td>{{visit.location}}</td>
+                                <td>{{visit.name}}</td>
+                                <td>{{visit.propertyType}}</td>
+                                <td>{{visit.phoneNumber}}</td>
+                                <td><input type="checkbox" name="seenCheckbox" :id="visit.id" checked></td>
+
+                            </tr>   
                         </tbody>    
                     </table>
-                    <button class="btn btn-primary" onclick="updateSeenVisit()">update</button>
+                    <button class="btn btn-primary" @click="updateSeenVisit">update</button>
                 </div>
                 <div class="container mt-5" id="unseen" style="display:none">
                     <table class="table">
                         <thead class="thead-dark">
-                          <tr>
-                              <th scope="col">Name</th>
+                            <tr>
+                              <th scope="col">Location</th>
+                              <th scope="col"> Name</th>
+                              <th scope="col">Property type</th>
                               <th scope="col">Phone number</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">House type</th>
-                            <th scope="col">Mark</th>
-                          </tr>
-                        </thead>
-                        <tbody id="unseenTable">    
-                        </tbody>    
+                              <th scope="col">Mark</th>
+                            </tr>
+                          </thead>
+                          <tbody id="seenTable"> 
+                              <tr v-for="visit in unseen">
+                                  <td>{{visit.location}}</td>
+                                  <td>{{visit.name}}</td>
+                                  <td>{{visit.propertyType}}</td>
+                                  <td>{{visit.phoneNumber}}</td>
+                                  <td><input type="checkbox" name="unseenCheckbox" :id="visit.id" ></td>
+  
+                              </tr>   
+                          </tbody>     
                     </table>
-                    <button class="btn btn-primary" onclick="updateUnseenVisit()">update</button>
+                    <button class="btn btn-primary" @click="updateUnseenVisit">update</button>
 
                 </div>
             </div>
-
+            <div class="col-2">
+                <h3 class="text-success">Filters</h3>
+                <label for="locationFilter">Location
+                    <input type="text" id="locationFilter" style="width:100%" @keyup="locfilter" name="locfilter" v-model="proploc">
+                </label>
+                <label for="propertyNameFilter">Name
+                    <input type="text" id="propertyNameFilter" style="width:100%" v-on:keyup="NameFilter" v-model="propName">
+                </label>
+                <label for="propertyTypeFilter">Property Type
+                    <input type="text" id="propertyTypeFilter" style="width:100%" v-on:keyup="propertytype" v-model="propType" >
+                </label>
+                <label for="proprtyNumberFilter">Phone number
+                    <input type="text" id="proprtyNumberFilter" style="width:100%" v-on:keyup="phoneFilter" v-model="phone" >
+                </label>
+            </div>
+</div>
+</div>
+</div>
+<footer id="footer" class="text-center py-5 my-5 bg-dark text-light">
+    <h1>Copyright AdminStrap, &copy; 2020</h1>
+  </footer>
 
 </body>
-<script src="./propertyVisit.js"></script>
-<script>seenbar()</script>
 
+<script>
+    const vm = new Vue({
+		
+        el: '#app',
+        data: {
+         allVisitlist:[],
+         seen:[],
+         unseen:[],
+         proploc:'',
+         propName:'',
+         propType:'',
+         phone:''
+          
+        },
+  
+       async created(){
+        await firebase.firestore().collection("visits").get().then((doc)=>{
+            doc.forEach((docs)=>{
+               this.allVisitlist.push(docs.data())
+            })
+        })
+        console.log(this.allVisitlist);
+        
+        },
+        methods:{
+            seenbar: async function(){
+                console.log("hey")
+                document.getElementById("unseen").style.display="none";
+                document.getElementById("seen").style.display="block";
+                var val={};
+                this.seen=[]
+                await firebase.firestore().collection('newPropertyRequest').get().then((res) =>{ 
+                    res.docs.forEach( (doc)=> {
+                        val= doc.data();
+                        if(val.seen==false)
+                            return;
+
+                        val['id'] = doc.id;
+                        this.seen.push(val)
+                    })
+                }) 
+            },
+            unseenbar: async function(){
+                console.log("usnee")
+                document.getElementById("seen").style.display="none";
+                document.getElementById("unseen").style.display="block";
+                var val={};
+                this.unseen=[]
+                await firebase.firestore().collection('newPropertyRequest').get().then((res) =>{ 
+                    res.docs.forEach( (doc)=> {
+                        val= doc.data();
+                        if(val.seen==true)
+                            return;
+
+                        val['id'] = doc.id;
+                        this.unseen.push(val)
+                    })
+                }) 
+            },
+             updateSeenVisit:async function(){
+                input = document.getElementsByName( 'seenCheckbox' )
+                // console.log(input)
+                await input.forEach((box)=>{
+                    if(box.checked==false){
+                        var ID = box.id
+                        console.log(ID)
+                        var seen = false;
+                        firebase.firestore().collection('newPropertyRequest').doc(ID).update({
+                            seen
+                        })
+                    }
+                })
+                this.seenbar()
+                // console.log(input)
+            },
+            updateUnseenVisit:async function(){
+                input = document.getElementsByName( 'unseenCheckbox' )
+               await input.forEach((box)=>{
+                    if(box.checked==true){
+                        var ID = box.id
+                        console.log(ID)
+                        var seen = true;
+                        firebase.firestore().collection('newPropertyRequest').doc(ID).update({
+                            seen
+                        })
+                    }
+                })
+                this.unseenbar()
+                // console.log(input)
+            },
+            locfilter: async function(){
+                // this.proploc='',
+                this.propName='',
+                this.propType='',
+                this.phone=''
+               
+                  this.seen=[];
+                  this.unseen=[];
+                  val = {};
+                  await firebase.firestore().collection('newPropertyRequest').get().then((docs)=>{
+                      docs.forEach((doc)=>{
+                         val = doc.data();
+                         val['id']=doc.id;
+                         var tmp = val.location.toLowerCase();
+                         console.log(tmp)
+                         var index = tmp.indexOf(this.proploc.toLowerCase());
+                        //  console.log(index)
+                         if(index!==-1)
+                           {
+                               if(val.seen == true)
+                                  this.seen.push(val);
+                               else{
+                                   this.unseen.push(val);
+                               }   
+                           }
+                      })
+                  })
+            },
+            NameFilter: async function(){
+                // if(this.tenantName.length==0)
+                //  return
+                this.proploc='',
+                // this.propName='',
+                this.propType='',
+                this.phone=''
+                  this.seen=[];
+                  this.unseen=[];
+                  val = {};
+                  await firebase.firestore().collection('newPropertyRequest').get().then((docs)=>{
+                      docs.forEach((doc)=>{
+                         val = doc.data();
+                         val['id']=doc.id;
+                         var tmp = val.name.toLowerCase();
+                        //  console.log(tmp)
+                         var index = tmp.indexOf(this.propName.toLowerCase());
+                        //  console.log(index)
+                         if(index!==-1)
+                           {
+                               if(val.seen == true)
+                                  this.seen.push(val);
+                               else{
+                                   this.unseen.push(val);
+                               }   
+                           }
+                      })
+                  })
+
+            },
+            propertytype: async function(){
+                this.proploc='',
+                this.propName='',
+                // this.propType='',
+                this.phone=''
+                this.seen=[];
+                  this.unseen=[];
+                  val = {};
+                  await firebase.firestore().collection('newPropertyRequest').get().then((docs)=>{
+                      docs.forEach((doc)=>{
+                         val = doc.data();
+                         val['id']=doc.id;
+                         var tmp = val.propertyType.toLowerCase();
+                        //  console.log(tmp)
+                         var index = tmp.indexOf(this.propType.toLowerCase());
+                        //  console.log(index)
+                        if(index!==-1)
+                           {
+                               if(val.seen == true)
+                                  this.seen.push(val);
+                               else{
+                                   this.unseen.push(val);
+                               }   
+                           }
+                      })
+                  })
+
+            },
+            phoneFilter: async function(){
+                this.proploc='',
+                this.propName='',
+                this.propType='',
+                // this.phone=''
+                this.seen=[];
+                  this.unseen=[];
+                  val = {};
+                  await firebase.firestore().collection('newPropertyRequest').get().then((docs)=>{
+                      docs.forEach((doc)=>{
+                         val = doc.data();
+                         val['id']=doc.id;
+                         var tmp = val.phoneNumber.toLowerCase();
+                        //  console.log(tmp)
+                         var index = tmp.indexOf(this.phone.toLowerCase());
+                        //  console.log(index)
+                         if(index!==-1)
+                           {
+                               if(val.seen == true)
+                                  this.seen.push(val);
+                               else{
+                                   this.unseen.push(val);
+                               }   
+                           }
+                      })
+                  })
+
+            },
+     
+               
+        },
+        mounted(){
+         this.seenbar()
+        }
+      })
+    </script>
+    <style>
+        #backbtn:hover
+            {
+                color:blue;
+                font-size: 2.2rem;
+            }
+        
+    </style>
+</script>
+
+
+<script src="./visit.js"></script>
+<!-- <script src="./visitFilter.js"></script> -->
+<!-- <script >
+    seenbar()
+</script> -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>

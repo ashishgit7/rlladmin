@@ -48,13 +48,14 @@
 
   </script>
   <!-- /////firebase//// -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 </head>
 <body>
   <nav class="navbar navbar-dark bg-primary text-center">
     <p class="navbar-brand " style="font-size: 3.25rem;"><span class="glyphicon glyphicon-cog"></span> Roomlelo Admin site</p>
   </nav>
   <div class="alert alert-primary text-center mx-5" role="alert">
-    <h1>Additional Visit
+    <h1>Book a  Visit
     </h1>
   </div>
   <div class="container-fluid">
@@ -64,15 +65,15 @@
           <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
           <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
           <a class="list-group-item" href="propertyUpdater.html">Property update</a>
-          <a class="list-group-item " href="visit.html">visit</a>
-          <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
+          <a class="list-group-item " href="visit.html">Scheduled visits</a>
+          <a class="list-group-item" href="propertyVisit.html">enlishment request</a>
           <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
-          <a class="list-group-item  " href="viewProperty.html">View Property Manager Property</a>
+          <a class="list-group-item  " href="viewProperty.html">acquisition request</a>
           <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
           <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
           <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
           <a class="list-group-item " href="userProfileView.html">User profile view</a>
-          <a class="list-group-item active" href="additionalVisit.html">Additional Visit</a>
+          <a class="list-group-item active" href="additionalVisit.html">book a  Visit</a>
         </ul>
       </div>
       <div class="col-4">
@@ -100,8 +101,14 @@
                                 <input required type="date" class="form-control" id="dateInput">
                             </div>
                             <div class="form-group">
-                                <label for="Property ID"> Property ID </label>
-                                <input type="text" class="form-control" id="propID" required>
+                                <label for="emailid" > Email ID </label>
+                                <input type="email" class="form-control" id="emailid" required>
+                            </div>
+                            <div id = "app" class="mb-2">
+                              <label for="">property ID</label>
+                              <select class="form-control" id="propertyID">
+                                <option v-for="id in propIDList" :value="id.id" >{{id.name}} <<--------->> {{id.id}}</option>
+                              </select>
                             </div>
                             <button type="button" class="btn btn-primary" onclick="submitData()" required  >
                                 Submit
@@ -124,39 +131,136 @@
     
   </body>
   <script>
-     function submitData(){
+    const vm = new Vue({
+		
+    el: '#app',
+    data: {
+      property:{},
+      bed:'',
+      managerName:[],
+      IDprop:[],
+      agreement:'',
+      checklist:'',
+      allProperties:[],
+      showProperties:[],
+      vloc:'',
+      vPname:'',
+      PMname:'',
+      owner:'',
+      type:[],
+      proptype:[],
+      propID:'',
+      propIDList:[]
+  
+    },
+    async created(){
+    var prop={}
+     await firebase.firestore().collection('properties').orderBy('name').get().then((docs)=>{
+      docs.forEach((doc)=>{
+        var prop={};
+        prop['id'] = doc.id;
+        prop['name'] = doc.data().name;
+        // prop['manager']= doc.data().manager;
+        // prop['PMPhonenumber']= doc.data().PMPhonenumber;
+        this.propIDList.push(prop)
+      })
+     })
+     console.log(this.propIDList)
+    },
+    methods:{
+    // check: function(){
+    //       console.log(this.propID)
+    // }
+  }
+  })
+  </script>
+ <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script>
+     async function submitData(){
+      // this.inp()
       if (confirm("Are you Sure!")) {
         console.log( "You pressed OK!");
     } else {
         console.log("You pressed Cancel!");return;
     }
     
+    
      var form={};
       form['name'] = document.getElementById("nameInput").value;
       form['phone'] = document.getElementById("numberInput").value;
       form['bookedDate'] = document.getElementById("dateInput").value;
-     var propertyid = document.getElementById("propID").value;
+      form['email'] = document.getElementById("emailid").value;
+      e = document.getElementById('propertyID')
+      propertyid = e.options[e.selectedIndex].value;
       if(form.name.length==0||form.phone.length==0||form.bookedDate.length==0||propertyid.length==0) {
         alert("wrong detail") 
         return;}
-     
-     var today = new Date();
+    
+    var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
     var today = mm + '/' + dd + '/' + yyyy;
-    firebase.firestore().collection('visits').add({
-    form,propertyid,
-    date: today,
-    seen:false
+    console.log(form);
+    console.log(propertyid);
+    console.log(today);
+    var prop={}
+    await firebase.firestore().collection('properties').doc(propertyid).get().then((doc)=>{
+    prop = doc.data();
+    })
+   console.log(prop)
+    var  bookedVisitMsg = "Thank you for choosing ROOMLELO your vist for ( rll.com/detail"+prop.id+" ) has been confirmed for ("+form.bookedDate +" ).Request you to call our manager on ( "+prop.PMPhonenumber + " to "+ prop.manager +").To confirm or cancel your visit before reaching & bring your own mode of transportation for safety."
+  console.log(bookedVisitMsg)
+    // await firebase.firestore().collection('visits').add({
+    // form,propertyid,
+    // date: today,
+    // seen:false
 
-})
-   
-     
+    // })
+   var  rdm = await `Visit confirmed for (${prop.name} and property ID: ${prop.id}) Customer name:- ${form.name} and no. :- ${form.phone} Date and time of visit:-  ${form.bookedDate} `;
+  
+    await this.SMSuser(bookedVisitMsg,form.phone)
+    await this.SMSmanager(prop,form,rdm)
+
+    
+// 
     }
+    function SMSuser(bookedVisitMsg,phone){
+         console.log(bookedVisitMsg);
+          console.log(phone);
+
+         var URL =  "https://www.fast2sms.com/dev/bulk?authorization=bLhTVlxWKv8sYJOynkBMCQPU2meNS3uAXjrZ5D47c6gqpi0a1obPWLc8ywd2tAZ1YgjN9GSBC5HnF0VI&sender_id=RLL&message="+bookedVisitMsg+"&language=english&route=p&numbers="+phone;
+         console.log(URL);
+      	var settings = {
+				"async": true,
+				"crossDomain": true,
+				"url": URL,
+				"method": "GET"
+			}
+			$.ajax(settings).done(function (response) {
+				console.log(response);
+			});
+     }
+     async function SMSmanager(prop,form,rdm){
+         
+         
+         console.log(rdm);
+         var URL = await "https://www.fast2sms.com/dev/bulk?authorization=bLhTVlxWKv8sYJOynkBMCQPU2meNS3uAXjrZ5D47c6gqpi0a1obPWLc8ywd2tAZ1YgjN9GSBC5HnF0VI&sender_id=RLL&message="+rdm+"&language=english&route=p&numbers=" + prop.PMPhonenumber;
+         console.log(URL);
+      	var settings = {
+				"async": true,
+				"crossDomain": true,
+				"url": URL,
+				"method": "GET"
+			}
+			$.ajax(settings).done(function (response) {
+				console.log(response);
+			});
+      window.location.reload();
+     }
   </script>
   <!-- <script src="./app.js"></script> -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   </html>

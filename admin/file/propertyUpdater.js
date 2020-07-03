@@ -360,3 +360,76 @@ function ownerNameCB (){
      HFinp.style.display = "block"
     }
 }
+////////////////////////////////////
+function ownerNumberCB (){
+  
+  var HF =   document.getElementById("ownerNumberCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("ownerNumberBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("ownerNumberBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function companyChargeCB (){
+  
+  var HF =   document.getElementById("companyChargeCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("companyChargeBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("companyChargeBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function ownerSecurityDepositCB (){
+  
+  var HF =   document.getElementById("ownerSecurityDepositCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("ownerSecurityDepositBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("ownerSecurityDepositBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function propertyTypeInputCB (){
+  
+  var HF =   document.getElementById("propertyTypeInputCB").checked
+  console.log(HF)
+  if(HF==false){
+     HFinp =   document.getElementById("propertyTypeInputBox");
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("propertyTypeInputBox");
+     HFinp.style.display = "block"
+    }
+}
+////////////////////////////////////
+function bookedRoomsCB (){
+  
+  var HF =   document.getElementById("bookedRoomsCB").checked
+  console.log(HF)
+  // inputs = document.getElementsByName( 'bookedRooms' )[0].value;
+  // console.log(input)
+  if(HF==false){
+     HFinp =   document.getElementById("bookedRoomsBox");
+     
+     HFinp.style.display = "none"
+    }
+    else{
+        HFinp =   document.getElementById("bookedRoomsBox");
+     HFinp.style.display = "block"
+    }
+}

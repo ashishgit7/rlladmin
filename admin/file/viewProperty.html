@@ -38,7 +38,7 @@
         <p class="navbar-brand " style="font-size: 3.25rem;"><span class="glyphicon glyphicon-cog"></span> Roomlelo Admin site</p>
     </nav>
     <div class="alert alert-primary text-center mx-5" role="alert">
-       <h1>View Property Manager Property
+       <h1>Acquisition request
        </h1>
     </div>
 <div id="app">
@@ -49,15 +49,15 @@
                     <a class="list-group-item " style="outline: thin;" href="../index.html">Dashboard</a>
                     <a class="list-group-item " style="outline: thin;" href="propertyUploader.html" >Property uploader</a>
                     <a class="list-group-item" href="propertyUpdater.html">Property update</a>
-                    <a class="list-group-item " href="visit.html">visit</a>
-                    <a class="list-group-item" href="propertyVisit.html">Property Visit</a>
+                    <a class="list-group-item " href="visit.html">Scheduled visits</a>
+                    <a class="list-group-item" href="propertyVisit.html">enlishment request</a>
                     <!-- <a class="list-group-item " href="propertyManagerProperty.html">Property Manager Property</a> -->
-                    <a class="list-group-item active " href="viewProperty.html">View Property Manager Property</a>
+                    <a class="list-group-item active " href="viewProperty.html">acquisition request</a>
                     <a class="list-group-item  " href="referedTenant.html">Refer Tenant</a>
                     <a class="list-group-item " href="referedOwner.html">Refer Owner</a>
                     <a class="list-group-item " href="mainPropertyView.html">Main properties List</a>
                     <a class="list-group-item " href="userProfileView.html">User profile view</a>
-                    <a class="list-group-item " href="additionalVisit.html">Additional Visit</a>
+                    <a class="list-group-item " href="additionalVisit.html">book a  Visit</a>
                   
                   </ul>
             </div> 
@@ -88,9 +88,90 @@
                 <p class="card-text" style="font-size:20px">{{property.shortDescription}}</p>
                 <h6 style="text-decoration: underline;" class="text-info">{{bed}} Bedrooms are
                     available only for {{property.forWhom}} </h6>
-                    <h4>Property Manager name: {{property.manager}}</h4>   
-                    <h4>number of property: {{property.numberOfProperty}}</h4>   
-                    <h4>Property Manager phone number: {{property.PMPhonenumber}}</h4>   
+                    <!-- <h4>Property Manager name: <span class="text-info " style="float: right;margin-right: 500px;"> {{property.manager}}</span></h4>   
+                    <h4>number of rooms in property: <span class="text-info " style="float: right;margin-right: 500px;">{{property.numberOfProperty}}</span></h4>   
+                    <h4>Property Manager phone number: <span class="text-info" style="float: right;margin-right: 500px;">{{property.PMPhonenumber}}</span></h4>   
+                    <h4>owner Name:<span class="text-info" style="float: right;margin-right: 500px;"> {{property.ownerName}}</span></h4>   
+                    <h4>owner phone number:<span class="text-info" style="float: right;margin-right: 500px;"> {{property.ownerNumber}}</span></h4>   
+                    <h4>Property Charge to company: <span class="text-info" style="float: right;margin-right: 500px;">Rs{{property.companyCharge}}</span></h4>   
+                    <h4>owner security Deposit: <span class="text-info" style="float: right;margin-right: 500px;">Rs{{property.ownerSecurityDeposit}}</span></h4>   
+                    <h4>Number of booked rooms: <span class="text-info" style="float: right;margin-right: 500px;">{{property.bookedRooms}}</span></h4>   
+                    <h4>Number of Vacant rooms: <span class="text-info" style="float: right;margin-right: 500px;">{{property.numberOfProperty-property.bookedRooms}}</span></h4>   -->
+
+                    <div class="row">
+                        <div class="col-8">
+                   <table class="table table-bordered">
+                       <thead class="thead-dark">
+                         <tr>
+                           <th scope="col">Col-1</th>
+                           <th scope="col">Col-2</th>
+                         </tr>
+                       </thead>
+                       <tbody id="seenTable"> 
+                           <tr >
+                               <td>House name</td>
+                               <td>{{property.name}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Location</td>
+                               <td>{{property.location}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Property Manager name</td>
+                               <td>{{property.manager}}</td>
+                           </tr>   
+                           <tr >
+                               <td>number of rooms in property</td>
+                               <td>{{property.numberOfProperty}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Property Manager phone number</td>
+                               <td>{{property.PMPhonenumber}}</td>
+                           </tr>   
+                           <tr >
+                               <td>owner Name</td>
+                               <td>{{property.ownerName}}</td>
+                           </tr>   
+                           <tr >
+                               <td>owner phone number</td>
+                               <td>{{property.ownerNumber}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Property Charge to company</td>
+                               <td>{{property.companyCharge}}</td>
+                           </tr>   
+                           <tr >
+                               <td>owner security Deposit</td>
+                               <td>{{property.ownerSecurityDeposit}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Number of Booked rooms</td>
+                               <td>{{property.bookedRooms}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Number of Vacant rooms</td>
+                               <td>{{property.numberOfProperty-property.bookedRooms}}</td>
+                           </tr>   
+                           <tr >
+                               <td>Property Type</td>
+                               <td>{{property.propertyType}}</td>
+                           </tr>   
+                           <tr >
+                               <td>minimum security Deposit (in text)</td>
+                               <td>{{property.minSecurityDeposit}}</td>
+                           </tr>   
+                           <tr >
+                               <td> security Deposit (in figures)</td>
+                               <td>{{property.securityDeposit}}</td>
+                           </tr>   
+                         
+                       </tbody>    
+                   </table>
+               </div>
+           </div>   
+
+
+
                     <h4> <a :href="agreement" id="agreementlink">  Agreement file link </a></h4>   
                     <h4> <a :href="checklist" id="checklistlink">  checklist file link </a></h4>   
                 <hr>
@@ -114,7 +195,7 @@
                        </div> 
                        </div>
                        <hr>
-                       <div>
+                       <!-- <div>
                            <p style="font-weight: bolder;">Minimum security deposit (in Rupees) {{property.minSecurityDeposit}}</p>
                            <p style="font-weight: bolder;">security deposit {{property.securityDeposit}}</p>
                        </div>
@@ -122,7 +203,7 @@
                        <div v-for="prices in property.priceArray">
                            <p style="font-weight: bolder;"> {{prices}}</p>
 
-                       </div>
+                       </div> -->
                        <div>
                         <span style="font-size:2.0rem;color:red">House Features</span>
                         <div style="display:flex;flex-direction:row;flex-wrap: wrap;">
@@ -283,8 +364,24 @@
         
         transfer: async function(id){
             console.log(id)
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            var today = mm + '/' + dd + '/' + yyyy;
              await firebase.firestore().collection('properties').doc(id).set(this.property)
             //  console.log(id)
+            await firebase.firestore().collection('propertyManager').doc(id).set({
+                name:this.property.manager,
+                phoneNumber:this.property.PMPhonenumber
+            })
+            await firebase.firestore().collection('ownerProfile').doc(ref.id).set({
+                name:this.property.ownerName,
+                phone:this.property.ownerNumber,
+                address:this.property.ownerAddress,
+                date:today
+            })
+            await firebase.firestore().collection('temporaryProperties').doc(id).delete();
              alert("request submitted")
         },
         del:  function(id){

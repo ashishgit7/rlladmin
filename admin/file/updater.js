@@ -270,7 +270,7 @@ async function update(){
      if(document.getElementById("PMnameCB").checked){
         inputs = document.getElementsByName( 'PMname' )[0].value;
         manager = inputs
-        console.log(name)
+        // console.log(name)
         await firebase.firestore().collection('properties').doc(ID).update({
             manager
         })
@@ -279,7 +279,7 @@ async function update(){
      if(document.getElementById("ownerNameCB").checked){
         inputs = document.getElementsByName( 'ownerName' )[0].value;
         ownerName = inputs
-        console.log(name)
+        // console.log(name)
         await  firebase.firestore().collection('properties').doc(ID).update({
             ownerName
         })
@@ -288,7 +288,7 @@ async function update(){
      if(document.getElementById("PMphonenumberCB").checked){
         inputs = document.getElementsByName( 'PMPhonenumber' )[0].value;
         PMPhonenumber = inputs
-        console.log(name)
+        // console.log(name)
         await firebase.firestore().collection('properties').doc(ID).update({
             PMPhonenumber
         })
@@ -297,13 +297,58 @@ async function update(){
      if(document.getElementById("PMnumberCB").checked){
         inputs = document.getElementsByName( 'numberOfProperty' )[0].value;
         numberOfProperty = inputs
-        console.log(name)
-        firebase.firestore().collection('properties').doc(ID).update({
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
             numberOfProperty
         })
     }
      ///////////////////////////////////////////////////////////////////
-     if(document.getElementById("availableCB").checked){
+     if(document.getElementById("ownerNumberCB").checked){
+        inputs = document.getElementsByName( 'ownerNumber' )[0].value;
+        ownerNumber = inputs
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            ownerNumber
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("companyChargeCB").checked){
+        inputs = document.getElementsByName( 'companyCharge' )[0].value;
+        companyCharge = inputs
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            companyCharge
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("ownerSecurityDepositCB").checked){
+        inputs = document.getElementsByName( 'ownerSecurityDeposit' )[0].value;
+        ownerSecurityDeposit = inputs
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            ownerSecurityDeposit
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("bookedRoomsCB").checked){
+        inputs = document.getElementsByName( 'bookedRooms' )[0].value;
+        bookedRooms = parseInt(inputs)
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            bookedRooms
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("propertyTypeInputCB").checked){
+        e = document.getElementById('propertyTypeInput')
+        propertyType = e.options[e.selectedIndex].value;
+        // console.log(name)
+        await firebase.firestore().collection('properties').doc(ID).update({
+            propertyTypeInput
+        })
+    }
+     ///////////////////////////////////////////////////////////////////
+     if(document.getElementById("agreementCB").checked){
         await firebase.storage().ref("agreement/"+ID).put(agreementPic);
        
 
