@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+    <title>Property Aquisition manager </title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -79,8 +79,9 @@
                   <label for="Housefeature" style="display: block;">House Feature</label>
                   <input id="Housefeature" class="form-control HF_input"  placeholder="Enter house feature"  name="feat">
                   <input class="form-control HF_input"  placeholder="Enter value"  name="val">
-                  <button type="button" onclick="addMoreHF()"> add more</button>
                 </div>
+                <button type="button" onclick="addMoreHF()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(3,'form1',3)"> remove</button>
                 <!-- ///house feature end/// -->
                 <!-- ///Near location/// -->
                 <div class="form-group" id="form2">
@@ -88,8 +89,9 @@
                  
                   <input id="nearLocation" class="form-control HF_input"  placeholder="Enter location"  name="nearPlaces">
                   <input class="form-control HF_input"  placeholder="Enter Distance"  name="distance">
-                  <button type="button" onclick="addMoreNL()"> add more</button>
                 </div>
+                <button type="button" onclick="addMoreNL()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(3,'form2',3)"> remove</button>
                 <!-- ///Near location end/// -->
                 <!-- ///Nearby/// -->
 
@@ -98,8 +100,9 @@
                  
                   <input id="nearby" class="form-control HF_input"  placeholder="Enter Nearby"  name="nearby">
                   <input class="form-control HF_input" type="number" placeholder="Enter number"  name="number">
-                  <button type="button" onclick="addMoreNB()"> add more</button>
                 </div>
+                <button type="button" onclick="addMoreNB()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(3,'form3',3)"> remove</button>
                 <!-- ///Nearby-end/// -->
                  <!-- ///Other-charges/// -->
 
@@ -108,12 +111,13 @@
                  
                   <input id="otherCharges" class="form-control HF_input"  placeholder="Enter charge Name"  name="otherchargename" placeholder="Other Charges">
                   <input  class="form-control HF_input"  placeholder="Enter amount"  name="amount">
-                  <button type="button" onclick="addMoreOtherCharges()"> add more</button>
                   <br>
                   <textarea class="form-control mt-1" style="width: 30%;" rows="2" placeholder="Additional Note" name="additionalNote"></textarea>
                   <br>
                   
                 </div>
+                <button type="button" onclick="addMoreOtherCharges()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(5,'form4',4)"> remove</button>
                 <!-- ///Other-charges-end/// -->
                  <!-- ///Amenities/// -->
 
@@ -125,6 +129,7 @@
                   
                 </div>
                 <button type="button" onclick="addMoreAmenity()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form5',1)"> remove</button>
                 <br>
                 <!-- ///Amenities-end/// -->
                 <!-- ///short Descriptions/// -->
@@ -147,6 +152,10 @@
                   
                 </div>
                 <!-- ///description-end/// -->
+                <div class="mb-3">
+                  <label for="availableBox">Available : </label>
+                  <input type="checkbox" name="" id="availableBox" onclick="inp()">
+                </div>
 
                 <!-- /////for-whom///// -->
                 <div class="input-group mb-3" style="width:30%">
@@ -183,6 +192,15 @@
                  
                 </div>
                 <!-- ////location-end//// -->
+                <!-- ////bookedRooms//// -->
+                <div class="input-group" style="width:30%">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Number of booked rooms</span>
+                  </div>
+                  <input type="number" class="form-control" name="bookedRooms">
+
+                </div>
+                <!-- ////bookedRooms-end//// -->
                 <!-- ////property Manager name//// -->
                 <div class="input-group mb-3" style="width:30%">
                   <div class="input-group-prepend">
@@ -201,10 +219,55 @@
 
                 </div>
                 <!-- ////Owner name-end//// -->
+
+                <!-- ////Owner  phone number//// -->
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Onwner Phone number</span>
+            </div>
+            <input type="text" class="form-control" name="ownerNumber">
+
+          </div>
+          <!-- ////Owner phone number-end//// -->
+           <!-- ////Owner  Address//// -->
+           <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Onwner Address</span>
+            </div>
+            <input type="text" class="form-control" name="ownerAddress">
+          </div>
+          <!-- ////property Address-end//// -->
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Property Address</span>
+            </div>
+            <input type="text" class="form-control" name="propertyAddress">
+
+          </div>
+          <!-- ////Owner Address-end//// -->
+          <!-- ////Owner charge to company//// -->
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Owner charge to company</span>
+            </div>
+            <input type="text" class="form-control" name="companyCharge">
+
+          </div>
+          <!-- ////Owner charge to company-end//// -->
+          <!-- ////Owner security Depost to company//// -->
+          <div class="input-group mb-3" style="width:30%">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Owner Security depost to company</span>
+            </div>
+            <input type="text" class="form-control" name="ownerSecurityDeposit">
+
+          </div>
+          <!-- ////Owner security Depost to company-end//// -->
+
                 <!-- ////Number//// -->
                 <div class="input-group mb-3" style="width:30%">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">Property number</span>
+                    <span class="input-group-text"> number of rooms</span>
                   </div>
                   <input type="number" class="form-control" name="numberOfProperty">
                  
@@ -254,6 +317,7 @@
                   
                 </div>
                 <button type="button" onclick="addMoreLandmarks()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form7',1)"> remove</button>
                 <br>
                 <!-- ////landmarks -end//// -->
                 <!-- ////photo url//// -->
@@ -265,6 +329,7 @@
                   
                 </div>
                 <button type="button" onclick="addMorePhotoURL()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form8',1)"> remove</button>
                 <br>
                 <!-- ////photo url//// -->
                  <!-- ////price array//// -->
@@ -276,10 +341,11 @@
                   
                 </div>
                 <button type="button" onclick="addMorePriceArray()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form8',1)"> remove</button>
                 <br>
                 <!-- ////Prices array//// -->
                 <!-- //////property-feature/// -->
-                <div class="form-group mt-3" id="form10">
+                <!-- <div class="form-group mt-3" id="form10">
                   <label for="PropertyFeature" style="display: block;">Property Feature</label>
                  
                   <input id="PropertyFeature" class="form-control" style="width:20%;display:inline" type="text" placeholder="Enter Property Feature"  name="PropertyFeature">
@@ -287,14 +353,13 @@
                   
                 </div>
                 <button type="button" onclick="addMorePropertyFeature()"> add more</button>
-                <br>
+                <br> -->
                 <!-- //////property-feature end/// -->
                 <!-- ///Rent-detail/// -->
                 <div class="form-group mt-3" id="form11">
                   <label for="Rent-detail" style="display: block;">Rent Detail</label>
                  
                   <input id="Rent-detail" class="form-control HF_input"  placeholder="Enter Room type"  name="type" >
-                  <button type="button" onclick="addMoreRentDetails()"> add more</button>
                   <br>
                   <input  class="form-control HF_input"  placeholder="Enter Monthly Rent"  name="monthlyRent">
                   
@@ -302,6 +367,8 @@
                   
                   
                 </div>
+                <button type="button" onclick="addMoreRentDetails()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(5,'form11',4)"> remove</button>
                 <!-- ///Rent-detail end/// -->
                 <!-- ///Responsiblity/// -->
                 <div class="form-group mt-3" id="form12">
@@ -311,6 +378,7 @@
                   
                 </div>
                 <button type="button" onclick="addMoreResponsibility()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form12',1)"> remove</button>
                 <br>
                <!-- ///Responsiblity-end/// -->
                 <!-- ///Rules/// -->
@@ -321,8 +389,24 @@
                   
                 </div>
                 <button type="button" onclick="addMoreRules()"> add more</button>
+                <button type="button" class="btn btn-danger" onclick="rem(2,'form13',1)"> remove</button>
                 <br>
                <!-- ///Rules-end/// -->
+               <div>
+                <select id="propertyTypeInput" class=" w-50 mt-3 mb-3">
+                  <option selected disabled>Property type</option>
+                  <option value = "assured property">assured property</option>
+                  <option value="RLL property">RLL property</option>
+                  <input type="text" style="display: none;">
+                </div>
+                <br>
+                
+                <label for="agreement" style="display: block;">Choose House Agreement</label>
+                <input type="file" id="agreement"  >
+                <br>
+                <br>
+                <label  style="display: block;">Choose House Checklist</label>
+                <input type="file" id="checklist"  >
                 <button type="button" class="btn btn-info mt-5" onclick="print()"> Submit</button>
             </form>    
         
@@ -335,6 +419,27 @@
         </footer>
     
 </body>
+<script>
+  function rem(mxchild,id,num){
+
+    x = document.getElementById(id).childElementCount;
+    // console.log(x);
+    // console.log(mxchild+' '+id)
+    if(x>mxchild){
+   for(i=0;i<num;i++)  { 
+  $('#'+id).children().last().remove();}}
+  }
+</script>
+<script>
+  var agreementPic;
+  var checklistPic;
+  document.getElementById('agreement').addEventListener('change', function(e){
+    agreementPic = e.target.files[0];
+  });
+   document.getElementById('checklist').addEventListener('change', function(e){
+    checklistPic = e.target.files[0];})
+  
+</script>
 <!-- <script src="./app.js"></script> -->
 <script src="./propertyManager.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

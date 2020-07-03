@@ -201,7 +201,7 @@ function addMoreRules(){
 
 }
 
-function print(){
+async function print(){
     if (confirm("Are you Sure!")) {
         console.log( "You pressed OK!");
       } else {
@@ -387,16 +387,58 @@ function print(){
     inputs = document.getElementsByName( 'ownerName' )[0].value;
     ownerName = inputs
     /////////////////////////////////////////////////////////////////////
+    inputs = document.getElementsByName( 'ownerNumber' )[0].value;
+    ownerNumber = inputs
+
+    inputs = document.getElementsByName( 'companyCharge' )[0].value;
+    companyCharge = inputs
+
+    inputs = document.getElementsByName( 'propertyAddress' )[0].value;
+    propertyAddress = inputs
+    
+    inputs = document.getElementsByName( 'ownerAddress' )[0].value;
+    ownerAddress = inputs
+
+    inputs = document.getElementsByName( 'ownerSecurityDeposit' )[0].value;
+    ownerSecurityDeposit = inputs  
+    available = document.getElementById("availableBox").checked; 
+    e = document.getElementById('propertyTypeInput')
+    propertyType = e.options[e.selectedIndex].value;   
+    
+    inputs = document.getElementsByName( 'bookedRooms' )[0].value;
+    bookedRooms = inputs
+    /////////////////////////////////////////////////////////////////////
             
     const ref = firebase.firestore().collection('temporaryProperties').doc()
 console.log(ref.id)  
    
 
-firebase.firestore().collection('temporaryProperties').doc(ref.id).set({
+await firebase.firestore().collection('temporaryProperties').doc(ref.id).set({
     HouseFeature,NearPlaces,Nearby,OtherCharges,amenities,
-    description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,ownerName,
+    description,shortDescription,minSecurityDeposit,forWhom,type,responsibility,rules,rentDetails,propertyFeatures,priceArray,photos,nearby,name,location,securityDeposit,manager,PMPhonenumber,numberOfProperty,available,ownerName,ownerNumber,companyCharge,ownerSecurityDeposit,propertyType,bookedRooms,
     id:ref.id
 })
+
+await firebase.firestore().collection('propertyManager').doc(ref.id).set({
+    name:manager,
+    phoneNumber:PMPhonenumber
+})
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+var today = mm + '/' + dd + '/' + yyyy;
+await firebase.firestore().collection('ownerProfile').doc(ref.id).set({
+    name:ownerName,
+    phone:ownerNumber,
+    address:ownerAddress,
+    date:today
+})
+
+await firebase.storage().ref("agreement/"+ref.id).put(agreementPic);
+await firebase.storage().ref("checklist/"+ref.id).put(checklistPic);
+
+alert('submitted with property id: '+ ref.id);
 }
 // var db = firebase.firestore();
 const ref = firebase.firestore().collection('temperoryProperties').doc()
