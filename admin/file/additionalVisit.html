@@ -201,9 +201,16 @@
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
     var today = mm + '/' + dd + '/' + yyyy;
-    console.log(form);
-    console.log(propertyid);
-    console.log(today);
+    // console.log(form);
+    // console.log(propertyid);
+    // console.log(today);
+    await firebase.firestore().collection('visits').add({
+                    form,
+                    propertyid,
+                    date:today,
+                    seen:false
+         
+        })
     var prop={}
     await firebase.firestore().collection('properties').doc(propertyid).get().then((doc)=>{
     prop = doc.data();

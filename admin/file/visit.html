@@ -91,9 +91,9 @@
                             <tr v-for="visit in seen">
                                 <td>{{visit.propertyid}}</td>
                                 <td>{{visit.form.name}}</td>
-                                <td>{{visit.form.bookedDate}}</td>
-                                <td>{{visit.form.phone}}</td>
                                 <td>{{visit.date}}</td>
+                                <td>{{visit.form.phone}}</td>
+                                <td>{{visit.form.bookedDate}}</td>
                                 <td>{{visit.form.email}}</td>
                                 <td><input type="checkbox" name="seenCheckbox" :id="visit.id" checked></td>
 
@@ -119,9 +119,9 @@
                             <tr v-for="visit in unseen">
                                 <td>{{visit.propertyid}}</td>
                                 <td>{{visit.form.name}}</td>
-                                <td>{{visit.form.bookedDate}}</td>
-                                <td>{{visit.form.phone}}</td>
                                 <td>{{visit.date}}</td>
+                                <td>{{visit.form.phone}}</td>
+                                <td>{{visit.form.bookedDate}}</td>
                                 <td>{{visit.form.email}}</td>
                                 <td><input type="checkbox" name="unseenCheckbox" :id="visit.id" ></td>
 
@@ -177,17 +177,16 @@
                this.allVisitlist.push(docs.data())
             })
         })
-        console.log(this.allVisitlist);
-        
+  
         },
         methods:{
             seenbar: async function(){
-                console.log("hey")
+                // console.log("hey")
                 document.getElementById("unseen").style.display="none";
                 document.getElementById("seen").style.display="block";
                 var val={};
                 this.seen=[]
-                await firebase.firestore().collection('visits').get().then((res) =>{ 
+                await firebase.firestore().collection('visits').orderBy('date').get().then((res) =>{ 
                     res.docs.forEach( (doc)=> {
                         val= doc.data();
                         if(val.seen==false)
@@ -197,14 +196,15 @@
                         this.seen.push(val)
                     })
                 }) 
+                this.seen.reverse();
             },
             unseenbar: async function(){
-                console.log("usnee")
+             
                 document.getElementById("seen").style.display="none";
                 document.getElementById("unseen").style.display="block";
                 var val={};
                 this.unseen=[]
-                await firebase.firestore().collection('visits').get().then((res) =>{ 
+                await firebase.firestore().collection('visits').orderBy('date').get().then((res) =>{ 
                     res.docs.forEach( (doc)=> {
                         val= doc.data();
                         if(val.seen==true)
@@ -213,7 +213,9 @@
                         val['id'] = doc.id;
                         this.unseen.push(val)
                     })
+
                 }) 
+                this.unseen.reverse();
             },
              updateSeenVisit:async function(){
                 input = document.getElementsByName( 'seenCheckbox' )
